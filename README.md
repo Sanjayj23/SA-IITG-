@@ -1,142 +1,100 @@
-Real-Time Smart Parking Dynamic Pricing System
-Overview
-This project implements a real-time dynamic pricing engine for smart parking systems. It leverages historical and live occupancy data to optimize parking prices using multiple models. Key features include robust data preparation, feature engineering, three pricing models, a real-time simulation pipeline, and interactive dashboards for visualization. The system is designed for extensibility, making it easy to integrate new features, models, or live data sources.
+# 🚗 Dynamic Parking Pricing Simulation
 
-Table of Contents
-Overview
+## 📄 Project Overview
+This project implements a **dynamic pricing engine** for urban parking spaces using real-time data streams, designed for the **Summer Analytics 2025 Capstone Project** hosted by **Consulting & Analytics Club × Pathway**.
 
-Tech Stack
+### ✅ Objective:
+- Dynamically adjust parking prices using:
+  - Occupancy
+  - Queue Length
+  - Traffic Congestion
+  - Special Days
+  - Vehicle Type
+  - Competitor Prices
 
-Architecture Diagram
+- Ensure:
+  - Smooth & explainable price changes
+  - Real-time price updates
+  - Visualization of pricing behavior over time
 
-Project Architecture & Workflow
+---
 
-Setup & Installation
+## 📂 Dataset Details:
+Collected from urban parking lots:
+- **14 Locations**
+- **73 Days**  
+- **18 Time Points Per Day** (Every 30 min from 8:00 AM to 4:30 PM)
+  
+**Features:**
+- Latitude, Longitude  
+- Capacity & Occupancy  
+- Queue Length  
+- Traffic Level  
+- Special Day Flag  
+- Vehicle Type  
+- Timestamp (Date + Time)
 
-Usage
+---
 
-Repository Structure
+## 🧠 Models Implemented:
+### 1️⃣ Baseline Linear Model:
+- Simple price adjustment based on occupancy:
+Price(t+1) = Price(t) + α × (Occupancy / Capacity)
 
-Working Code
+### 2️⃣ Demand-Based Model:
+Price adjusted based on a demand function considering multiple factors:
+- Occupancy Rate
+- Queue Length
+- Traffic
+- Special Day
+- Vehicle Type  
 
-Documentation
+> Price bounded between **0.5x** and **2x** of base price.
 
-License
+### 3️⃣ Competitive Model (Advanced):
+- Adds competitor parking prices via location proximity.
+- Adjusts prices based on:
+  - Nearby parking lot prices.
+  - Occupancy saturation.
 
-Contact & Acknowledgments
+---
 
-Tech Stack
-Component	Technology/Libraries
-Programming	Python 3.8+
-Data Processing	pandas, numpy
-Real-Time Engine	Pathway
-Visualization	Bokeh, matplotlib
-Machine Learning	scikit-learn (optional, for advanced models)
-Utilities	Google Colab (optional), warnings
-Architecture Diagram
+## ⚙️ Technologies Used:
+- **Python**
+- **Pandas, Numpy** – Data Manipulation & Modeling  
+- **Pathway** – Streaming Simulation  
+- **Bokeh** – Real-time Visualization
 
-flowchart TD
-    A[Raw Parking Data (CSV)] --> B[Data Preparation & Feature Engineering]
-    B --> C1[Baseline Linear Model]
-    B --> C2[Demand-Based Model]
-    B --> C3[Competitive Model]
-    C1 & C2 & C3 --> D[Real-Time Pricing Engine]
-    D --> E[Streaming Data Simulation (Pathway)]
-    E --> F[Interactive Dashboard (Bokeh)]
-    F --> G[User/Reviewer]
-Project Architecture & Workflow
-1. Data Preparation
-Loads historical parking data from dataset.csv.
+---
 
-Cleans data, checks for missing values, and engineers features:
+## 📈 Visualization:
+Real-time interactive plots showing:
+- Baseline Price
+- Demand-Based Price
+- Competitive Price  
 
-Occupancy rate, demand pressure, datetime parsing, hour, day of week, weekend flag.
+Plots show smooth price transitions over time, satisfying business constraints.
 
-2. Feature Engineering
-Adds advanced features for demand and competitive pricing:
+---
 
-Queue length, traffic condition, special day indicator, vehicle type weighting.
+## 📝 How to Run:
+1. Open `dynamic_parking_pricing.ipynb` in **Google Colab**.
+2. Upload `dataset.csv` (provided).
+3. Run all cells.
+4. Interactive price graph will be displayed.
 
-Computes a distance matrix for competitive pricing using the Haversine formula.
+---
 
-3. Pricing Models
-Baseline Linear Model: Sets price as a linear function of occupancy rate, bounded within 0.5x–2x base price.
+## 📊 Results:
+- Smooth, realistic dynamic pricing.
+- Clear comparison of 3 models.
+- Prices adapt to demand and competition effectively.
 
-Demand-Based Model: Considers occupancy, queue, traffic, special days, and vehicle type; normalizes demand and adjusts price.
+---
 
-Competitive Model: Inherits demand-based logic and adjusts price based on nearby competitor prices using the distance matrix.
+## 🚀 Submission Prepared By:
+- **Participant:** Sanjay Jangir 
+- **Summer Analytics 2025 – Consulting & Analytics Club, IIT Guwahati**
 
-4. Real-Time Processing
-Simulates a real-time data stream using Pathway, replaying historical data in temporal order.
+---
 
-The RealTimePricingEngine processes each data point, applies all three models, and logs pricing history.
-
-5. Visualization
-Interactive Bokeh dashboard displays:
-
-Real-time prices for each location.
-
-Average occupancy rate over time.
-
-Easily customizable to add more locations or metrics.
-
-6. Extensibility
-Modular codebase allows easy integration of new features, models, or live data sources.
-
-The notebook is annotated for clarity and reproducibility.
-
-Setup & Installation
-Clone the repository:
-
-bash
-git clone https://github.com/yourusername/smart-parking-pricing.git
-cd smart-parking-pricing
-Install dependencies:
-
-bash
-pip install pathway==0.2.1 bokeh pandas numpy matplotlib
-Prepare the dataset:
-
-Place your dataset.csv file in the repository root directory.
-
-Usage
-Open the Jupyter notebook:
-
-
-jupyter notebook SA_final_project.ipynb
-Run all cells to:
-
-Install dependencies
-
-Load and explore data
-
-Engineer features
-
-Build and test pricing models
-
-Simulate real-time streaming
-
-Launch the interactive dashboard
-
-Repository Structure
-
-.
-├── SA_final_project.ipynb    
-├── dataset.csv            
-├── README.md               
-Working Code
-All scripts and the main notebook (SA_final_project.ipynb) are present and tested to run without errors, provided the dataset is correctly formatted and placed as dataset.csv in the root directory.
-
-Ensure all dependencies are installed as specified above.
-
-Documentation
-Notebook Annotations: The notebook contains detailed markdown cells explaining each step, model, and visualization.
-
-Customization: Instructions are included for adding new features, tuning models, and integrating live data sources.
-
-License
-This project is licensed under the MIT License.
-
-Contact & Acknowledgments
-
-Acknowledgments: Built using Pathway, Bokeh, Pandas, and NumPy. Dataset structure inspired by smart city parking initiatives.
